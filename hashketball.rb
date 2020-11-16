@@ -1,5 +1,5 @@
 # Write your code below game_hash
-
+require 'pry'
 def game_hash
   {
     home: {
@@ -128,3 +128,113 @@ def game_hash
 end
 
 # Write code here
+
+def num_points_scored(player_name)
+  game_hash.each do |home,team_name|
+    team_name.each do |home_hash,players_key|
+      
+      if home_hash == :players
+        players_key.each do |key,value|
+          if player_name == key[:player_name]
+            return key[:points]
+          end
+  #binding.pry
+        end
+      end
+      
+    end
+  end
+end
+
+def shoe_size(player_name)
+  game_hash.each do |home, team_name|
+     team_name.each do |home_hash,players_key|
+       
+     if home_hash == :players
+        players_key.each do |key,value|
+          
+          if player_name == key[:player_name]
+            return key[:shoe]
+          end
+        end
+     end
+   end
+  end
+end
+
+def team_colors(team_name)
+  #binding.pry
+  array_of_colors = []
+  array_of_colors_2 = []
+  
+  game_hash.each do |key, value|
+    if value[:team_name] == team_name
+      return value[:colors]
+      
+    end
+  end
+end
+
+def team_names
+  array_team_names = []
+  game_hash.each do |home, team_name|
+  
+    #binding.pry
+    array_team_names << team_name[:team_name]
+  end
+  return array_team_names
+ end  
+ 
+ 
+ def player_numbers(team_name)
+   jersey_numbers = []
+   game_hash.each do |home, value|
+    if value[:team_name] == team_name  
+      value[:players].each do |key, detail|
+     #binding.pry
+     jersey_numbers << key[:number]
+     
+
+ end
+ end 
+ end
+ return jersey_numbers 
+ end
+ 
+ 
+ def player_stats(player_name)
+    player_stats = {}
+      game_hash.each do |home, team_name|
+        team_name[:players].each do |key, value|
+           #binding.pry
+        if player_name == key[:player_name]
+       return key
+    
+        end
+      end
+    end
+ end
+
+
+def big_shoe_rebounds
+  largest_player_so_far = " "
+  largest_shoe_size_so_far = 0
+  
+  game_hash.each do |home, team_name|
+    team_name[:players].each do |player_hash|
+    
+      #need find player with largest shoe shoe_size
+      #after found return player's rebounds
+      
+      if player_hash[:shoe] > largest_shoe_size_so_far
+        #binding.pry
+        largest_shoe_size_so_far = player_hash[:shoe]
+        largest_player_so_far = player_hash
+        
+      end
+    end
+   
+ end
+  return largest_player_so_far[:rebounds]
+end
+ 
